@@ -9,6 +9,7 @@
 *.hi
 *.p_hi
 a.out
+*.sqlite3
 # misc
 dist/
 cabal-dev/
