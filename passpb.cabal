@@ -5,14 +5,20 @@ license-file:   LICENSE
 author:         Yuichiro Hanada
 maintainer:     Yuichiro Hanada
 stability:      Experimental
-synopsis:       pass
-cabal-version:  >= 1.6
+synopsis:       A simple Webapp for managing passwords.
+cabal-version:  >= 1.10
 build-type:     Simple
 
-library
+executable Main
+  Hs-source-dirs: src
+  main-is: Main.hs
+  Default-Language: Haskell2010
   ghc-options: -Wall
 
   build-depends:
-      base >= 4
+      base >= 4.6 && < 5
     , scrypt
+    , scotty
+    , transformers
+    , wai-extra
 
