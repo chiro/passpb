@@ -14,12 +14,17 @@ executable Main
   main-is: Main.hs
   Default-Language: Haskell2010
   ghc-options: -Wall
+  extra-libraries: pthread
 
   build-depends:
       base >= 4.6 && < 5
     , blaze-html
+    , bytestring
     , hamlet
-    , scrypt
+    , persistent
+    , persistent-template
+    , persistent-sqlite
+    , scrypt >= 0.5
     , scotty
     , text
     , transformers
