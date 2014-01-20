@@ -1,0 +1,18 @@
+name:   passpb
+version:        0.0
+license:        BSD3
+license-file:   LICENSE
+author:         Yuichiro Hanada
+maintainer:     Yuichiro Hanada
+stability:      Experimental
+synopsis:       pass
+cabal-version:  >= 1.6
+build-type:     Simple
+
+library
+  ghc-options: -Wall
+
+  build-depends:
+      base >= 4
+    , scrypt
+
