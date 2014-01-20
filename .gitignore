@@ -1,0 +1,14 @@
+# General
+\#*#
+.*~
+*~
+# Object files
+*.a
+*.o
+*.so
+*.hi
+*.p_hi
+a.out
+# misc
+dist/
+cabal-dev/
