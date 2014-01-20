@@ -17,8 +17,11 @@ executable Main
 
   build-depends:
       base >= 4.6 && < 5
+    , blaze-html
+    , hamlet
     , scrypt
     , scotty
+    , text
     , transformers
     , wai-extra
 
