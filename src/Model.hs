@@ -12,4 +12,9 @@ User
     name String
     encryptedPass B.ByteString
     deriving Show
+Service
+    name String
+    scramblers [String]
+    userId UserId
+    deriving Show
 |]

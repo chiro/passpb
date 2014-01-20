@@ -5,7 +5,7 @@ $doctype 5
   <h1>Passpb
   <form method="POST" action="/login">
     ID: <input type="text" name="user_id"><br>
-    Password: <input type-"password" name="password"><br>
+    Password: <input type="password" name="password"><br>
     <input type="submit" value="Login">
 
   <a href="/register">Register

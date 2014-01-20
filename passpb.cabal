@@ -18,8 +18,11 @@ executable Main
 
   build-depends:
       base >= 4.6 && < 5
+    , blaze-builder
     , blaze-html
     , bytestring
+    , cookie
+    , clientsession
     , hamlet
     , persistent
     , persistent-template
