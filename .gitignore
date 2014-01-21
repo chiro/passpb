@@ -13,3 +13,4 @@ a.out
 # misc
 dist/
 cabal-dev/
+*.aes
