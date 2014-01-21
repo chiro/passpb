@@ -16,6 +16,7 @@ Library
 
   build-depends:
       base >= 4.6 && < 5
+    , base64-bytestring
     , blaze-builder
     , blaze-html
     , bytestring

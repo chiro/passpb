@@ -9,6 +9,7 @@ import Database.Persist.Sqlite
 import qualified Web.Scotty as WS
 
 import Web.Passpb.App
+import Web.Passpb.Crypt
 import Web.Passpb.Model
 import Config
 
