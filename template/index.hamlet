@@ -1,11 +1,23 @@
 $doctype 5
-<html lang="en">
+<html class="no-js" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Passpb
+  <link rel="stylesheet" href="/css/foundation.css" />
+  <script src="/js/modernizr.js">
 
 <body>
-  <h1>Passpb
-  <form method="POST" action="/login">
-    ID: <input type="text" name="user_id"><br>
-    Password: <input type="password" name="password"><br>
-    <input type="submit" value="Login">
+  <div class="row">
+    <div class="large-12 columns">
 
-  <a href="/register">Register
+      <h1>Passpb
+      <form method="POST" action="/login">
+        ID: <input type="text" name="user_id"><br>
+        Password: <input type="password" name="password"><br>
+        <input type="submit" value="Login">
+
+      <a href="/register">Register
+
+  <script src="/js/jquery.js">
+  <script src="/js/foundation.min.js">

@@ -32,4 +32,5 @@ executable Main
     , text
     , transformers
     , wai-extra
+    , wai-middleware-static
 

@@ -1,8 +1,20 @@
 $doctype 5
 <html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Passpb
+  <link rel="stylesheet" href="/css/foundation.css" />
+  <script src="/js/modernizr.js">
 
 <body>
-  <form method="POST" action="/register">
-    ID: <input type="text" name="user_id"><br>
-    Password: <input type="password" name="password"><br>
-    <input type="submit" value="OK">
+  <div class="row">
+    <div class="large-12 columns">
+
+      <form method="POST" action="/register">
+        ID: <input type="text" name="user_id"><br>
+        Password: <input type="password" name="password"><br>
+        <input type="submit" value="OK">
+
+  <script src="/js/jquery.js">
+  <script src="/js/foundation.min.js">

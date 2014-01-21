@@ -1,5 +1,18 @@
 $doctype 5
 <html lang="en">
-<p>You are #{user}
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Passpb
+  <link rel="stylesheet" href="/css/foundation.css" />
+  <script src="/js/modernizr.js">
 
-<a href="/logout">Logout
+<body>
+  <div class="row">
+    <div class="large-12 columns">
+      <p>You are #{user}
+
+      <a href="/logout">Logout
+
+  <script src="/js/jquery.js">
+  <script src="/js/foundation.min.js">

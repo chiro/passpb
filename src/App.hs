@@ -18,6 +18,7 @@ import Database.Persist (insert)
 import qualified Database.Persist.Sqlite as Sq
 
 import Network.Wai.Middleware.RequestLogger (logStdoutDev)
+import Network.Wai.Middleware.Static (staticPolicy, addBase, contains, (>->), (<|>))
 
 import Text.Blaze.Html.Renderer.Text (renderHtml)
 import qualified Text.Hamlet as TH
@@ -49,6 +50,7 @@ getNonce user = do
 app:: ScottyM ()
 app = do
   middleware logStdoutDev
+  middleware $ staticPolicy $ addBase "static" >-> (contains "/js/" <|> contains "/css/")
 
   get "/" $ do
     html $ renderHtml $ $(TH.hamletFile "./template/index.hamlet") undefined
