@@ -12,13 +12,22 @@ $doctype 5
     <div class="large-12 columns">
       <p>You are #{user}
 
-      <ul>
-        $forall service <- services
-          <li>#{service}
+      <div class="row">
+        <div class="large-3 columns">
+          <label for="right-label" class="right inline" style="font-size:25px">Password:
+        <div class="large-9 columns">
+          <input type="text" name="pass">
+
+      $forall service <- services
+        <div class="row">
+          <div class="large-3 columns">
+            <label for="right-label" class="right inline" style="font-size:25px">#{service}
+          <div class="large-9 columns">
+            <input type="text" id=#{service}>
 
       <form method="POST" action=@{List}>
-        New service: <input type="text" name="service"><br>
-        <input type="submit" value="Register">
+        New service: <input type="text" name="service">
+        <input type="submit" value="Add">
 
       <a href=@{Logout}>Logout
 
