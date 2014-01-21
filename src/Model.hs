@@ -14,7 +14,6 @@ User
     deriving Show
 Service
     name String
-    scramblers [String]
-    userId UserId
+    user String
     deriving Show
 |]

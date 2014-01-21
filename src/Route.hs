@@ -8,9 +8,14 @@ data MyRoute =
   | Login
   | Logout
   | Register
+  | List
 
 render :: MyRoute -> [(Text, Text)] -> Text
-render Home _ = "/"
-render Login _ = "/login"
-render Logout _ = "/logout"
-render Register _ = "/register"
+render route _ = getPath route
+
+getPath :: MyRoute -> Text
+getPath Home = "/"
+getPath Login = "/login"
+getPath Logout = "/logout"
+getPath Register = "/register"
+getPath List = "/list"

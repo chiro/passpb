@@ -12,6 +12,14 @@ $doctype 5
     <div class="large-12 columns">
       <p>You are #{user}
 
+      <ul>
+        $forall service <- services
+          <li>#{service}
+
+      <form method="POST" action=@{List}>
+        New service: <input type="text" name="service"><br>
+        <input type="submit" value="Register">
+
       <a href=@{Logout}>Logout
 
   <script src="/js/jquery.js">
