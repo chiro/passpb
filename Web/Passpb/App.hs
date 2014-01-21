@@ -10,6 +10,7 @@ import qualified Crypto.Scrypt as CS
 
 import qualified Data.ByteString as BS
 import qualified Data.ByteString.Char8 as B8
+import Data.Char (isAlphaNum)
 import Data.String (fromString)
 import qualified Data.Text as T
 import Data.Text.Lazy (toStrict, fromStrict)
@@ -29,6 +30,7 @@ import Web.ClientSession (getDefaultKey, encryptIO, decrypt)
 import Web.Scotty (middleware, redirect, html, ActionM, param, ScottyM, setHeader, reqHeader)
 import qualified Web.Scotty as WS
 
+import Web.Passpb.Crypt
 import Web.Passpb.Model
 import Web.Passpb.Route
 
@@ -99,6 +101,7 @@ app dbFile = do
         services' <- liftIO (Sq.runSqlite dbFile (Sq.selectList [ServiceUser Sq.==. user] []))
                     :: ActionM [Sq.Entity Service]
         let services = map (serviceName . Sq.entityVal) services'
+        let code = "if (event.keyCode == 13) {" ++ foldl (\acc s -> acc ++ "sethtml('" ++ s ++ "');") "" services ++ "}"
         html $ renderHtml $ $(TH.hamletFile "./template/list.hamlet") render
 
   post List $ do
@@ -144,3 +147,10 @@ app dbFile = do
                 setCookie "user" nonce
                 redirect "/list"
         else redirect "/" -- failed
+
+  -- json API
+  get Scramble $ do
+    pass <- param "pass"
+    realm <- param "realm"
+    let res = take 8 $ filter isAlphaNum $ scramble ((T.unpack pass) ++ "@" ++ (T.unpack realm))
+    WS.text . fromStrict $ T.pack res

@@ -9,6 +9,7 @@ data MyRoute =
   | Logout
   | Register
   | List
+  | Scramble
 
 render :: MyRoute -> [(Text, Text)] -> Text
 render route _ = getPath route
@@ -19,3 +20,4 @@ getPath Login = "/login"
 getPath Logout = "/logout"
 getPath Register = "/register"
 getPath List = "/list"
+getPath Scramble = "/scramble"
