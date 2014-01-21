@@ -9,9 +9,7 @@ synopsis:       A simple Webapp for managing passwords.
 cabal-version:  >= 1.10
 build-type:     Simple
 
-executable Main
-  Hs-source-dirs: src
-  main-is: Main.hs
+Library
   Default-Language: Haskell2010
   ghc-options: -Wall
   extra-libraries: pthread
@@ -23,6 +21,7 @@ executable Main
     , bytestring
     , cookie
     , clientsession
+    , cryptohash
     , hamlet
     , persistent
     , persistent-template
@@ -34,3 +33,23 @@ executable Main
     , wai-extra
     , wai-middleware-static
 
+  exposed-modules:
+    Web.Passpb.App
+    Web.Passpb.Crypt
+    Web.Passpb.Model
+    Web.Passpb.Route
+
+executable Main
+  Hs-source-dirs: src
+  main-is: Main.hs
+  Default-Language: Haskell2010
+  ghc-options: -Wall
+  extra-libraries: pthread
+
+  build-depends:
+      base >= 4.6 && < 5
+    , bytestring
+    , passpb
+    , persistent-sqlite
+    , scotty
+    , text

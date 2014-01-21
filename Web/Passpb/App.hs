@@ -1,5 +1,5 @@
 {-# LANGUAGE TemplateHaskell, OverloadedStrings #-}
-module App where
+module Web.Passpb.App where
 
 import Blaze.ByteString.Builder (toByteString)
 
@@ -29,9 +29,8 @@ import Web.ClientSession (getDefaultKey, encryptIO, decrypt)
 import Web.Scotty (middleware, redirect, html, ActionM, param, ScottyM, setHeader, reqHeader)
 import qualified Web.Scotty as WS
 
-import Config
-import Model
-import Route
+import Web.Passpb.Model
+import Web.Passpb.Route
 
 -- Operations about cookies.
 makeCookie :: BS.ByteString -> BS.ByteString -> SetCookie
@@ -76,15 +75,15 @@ authed cookies = case cookies of
           return $ Just $ T.unpack (TE.decodeUtf8 user'')
 
 -- get user entity
-getUser :: String -> ActionM User
-getUser name = do
+getUser :: T.Text -> String -> ActionM User
+getUser dbFile name = do
   entries <- liftIO (Sq.runSqlite dbFile (Sq.selectList [UserName Sq.==. name] [Sq.LimitTo 1]))
              :: ActionM [Sq.Entity User]
   return $ Sq.entityVal (head entries)
 
 -- App.
-app:: ScottyM ()
-app = do
+app:: T.Text -> ScottyM ()
+app dbFile = do
   middleware logStdoutDev
   middleware $ staticPolicy $ addBase "static" >-> (contains "/js/" <|> contains "/css/")
 
@@ -109,7 +108,7 @@ app = do
     case user' of
       Nothing -> redirect "/" -- not login-ed
       Just user_name -> do
-        user <- getUser user_name
+        user <- getUser dbFile user_name
         _ <- liftIO $ Sq.runSqlite dbFile $ do
           insert $ Service service (userName user)
         redirect "/list"

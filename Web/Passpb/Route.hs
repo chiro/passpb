@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
-module Route where
+module Web.Passpb.Route where
 
 import Data.Text (Text)
 

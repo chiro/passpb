@@ -1,6 +1,6 @@
 {-# LANGUAGE FlexibleContexts, GADTs, OverloadedStrings #-}
 {-# LANGUAGE TemplateHaskell, TypeFamilies, QuasiQuotes #-}
-module Model where
+module Web.Passpb.Model where
 
 import qualified Data.ByteString as B
 

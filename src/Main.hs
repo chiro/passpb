@@ -8,12 +8,13 @@ import Database.Persist.Sqlite
 
 import qualified Web.Scotty as WS
 
-import App
-import Model
+import Web.Passpb.App
+import Web.Passpb.Model
+import Config
 
 main :: IO ()
 main = do
-  runSqlite "dev.sqlite3" $ do
+  runSqlite dbFile $ do
     runMigration migrateAll
   port <- liftM read $ getEnv "PORT"
-  WS.scotty port app
+  WS.scotty port (app dbFile)
