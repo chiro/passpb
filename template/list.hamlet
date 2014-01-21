@@ -12,7 +12,7 @@ $doctype 5
     <div class="large-12 columns">
       <p>You are #{user}
 
-      <a href="/logout">Logout
+      <a href=@{Logout}>Logout
 
   <script src="/js/jquery.js">
   <script src="/js/foundation.min.js">

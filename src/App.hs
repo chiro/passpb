@@ -28,6 +28,7 @@ import Web.ClientSession (getDefaultKey, encryptIO, decrypt)
 import Web.Scotty
 
 import Model
+import Route
 
 makeCookie :: BS.ByteString -> BS.ByteString -> SetCookie
 makeCookie n v = def { setCookieName = n, setCookieValue = v }
@@ -53,7 +54,7 @@ app = do
   middleware $ staticPolicy $ addBase "static" >-> (contains "/js/" <|> contains "/css/")
 
   get "/" $ do
-    html $ renderHtml $ $(TH.hamletFile "./template/index.hamlet") undefined
+    html $ renderHtml $ $(TH.hamletFile "./template/index.hamlet") render
 
   get "/list" $ do
     cookies' <- getCookies
@@ -70,14 +71,14 @@ app = do
             Nothing -> redirect "/" -- not login-ed
             Just user'' -> do
               let user = TE.decodeUtf8 user''
-              html $ renderHtml $ $(TH.hamletFile "./template/list.hamlet") undefined
+              html $ renderHtml $ $(TH.hamletFile "./template/list.hamlet") render
 
   get "/logout" $ do
     setCookie "user" ""
     redirect "/"
 
   get "/register" $ do
-    html $ renderHtml $ $(TH.hamletFile "./template/register.hamlet") undefined
+    html $ renderHtml $ $(TH.hamletFile "./template/register.hamlet") render
 
   -- register new user
   post "/register" $ do

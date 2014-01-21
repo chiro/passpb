@@ -12,12 +12,12 @@ $doctype 5
     <div class="large-12 columns">
 
       <h1>Passpb
-      <form method="POST" action="/login">
+      <form method="POST" action=@{Login}>
         ID: <input type="text" name="user_id"><br>
         Password: <input type="password" name="password"><br>
         <input type="submit" value="Login">
 
-      <a href="/register">Register
+      <a href=@{Register}>Register
 
   <script src="/js/jquery.js">
   <script src="/js/foundation.min.js">
