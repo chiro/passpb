@@ -29,6 +29,7 @@ import Web.ClientSession (getDefaultKey, encryptIO, decrypt)
 import Web.Scotty (middleware, redirect, html, ActionM, param, ScottyM, setHeader, reqHeader)
 import qualified Web.Scotty as WS
 
+import Config
 import Model
 import Route
 
@@ -77,7 +78,7 @@ authed cookies = case cookies of
 -- get user entity
 getUser :: String -> ActionM User
 getUser name = do
-  entries <- liftIO (Sq.runSqlite "dev.sqlite3" (Sq.selectList [UserName Sq.==. name] [Sq.LimitTo 1]))
+  entries <- liftIO (Sq.runSqlite dbFile (Sq.selectList [UserName Sq.==. name] [Sq.LimitTo 1]))
              :: ActionM [Sq.Entity User]
   return $ Sq.entityVal (head entries)
 
@@ -96,7 +97,7 @@ app = do
     case user' of
       Nothing -> redirect "/" -- not login-ed
       Just user -> do
-        services' <- liftIO (Sq.runSqlite "dev.sqlite3" (Sq.selectList [ServiceUser Sq.==. user] []))
+        services' <- liftIO (Sq.runSqlite dbFile (Sq.selectList [ServiceUser Sq.==. user] []))
                     :: ActionM [Sq.Entity Service]
         let services = map (serviceName . Sq.entityVal) services'
         html $ renderHtml $ $(TH.hamletFile "./template/list.hamlet") render
@@ -109,7 +110,7 @@ app = do
       Nothing -> redirect "/" -- not login-ed
       Just user_name -> do
         user <- getUser user_name
-        _ <- liftIO $ Sq.runSqlite "dev.sqlite3" $ do
+        _ <- liftIO $ Sq.runSqlite dbFile $ do
           insert $ Service service (userName user)
         redirect "/list"
 
@@ -125,7 +126,7 @@ app = do
     user_id <- param "user_id" :: ActionM String
     pass <- liftM (CS.Pass . B8.pack) $ param "password"
     encryptedPass <- liftIO $ CS.encryptPassIO' pass
-    _ <- liftIO $ Sq.runSqlite "dev.sqlite3" $ do
+    _ <- liftIO $ Sq.runSqlite dbFile $ do
       insert $ User user_id (CS.getEncryptedPass encryptedPass)
     redirect "/"
 
@@ -133,7 +134,7 @@ app = do
   post Login $ do
     user_id <- param "user_id" :: ActionM String
     pass <- liftM (CS.Pass . B8.pack) $ param "password"
-    user <- liftIO (Sq.runSqlite "dev.sqlite3" (Sq.selectList [UserName Sq.==. user_id] [Sq.LimitTo 1]))
+    user <- liftIO (Sq.runSqlite dbFile (Sq.selectList [UserName Sq.==. user_id] [Sq.LimitTo 1]))
             :: ActionM ([Sq.Entity User])
     if null user
       then redirect "/" -- failed
